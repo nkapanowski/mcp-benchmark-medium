@@ -16,7 +16,7 @@ mcp = FastMCP("EC2 Medium Workload MCP Server")
 NIXHUB_BASE   = "https://www.nixhub.io/api/v0"
 REPOLOGY_BASE = "https://repology.org/api/v1"
 HN_BASE       = "https://hacker-news.firebaseio.com/v0"
-NPS_KEY       = "DEMO_KEY"   # replace with real key if DEMO_KEY is rate-limited
+NPS_KEY       = "vWIvxHbhzvvMppbr55vmksve9oXJzVMpFRhcnho9"  
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -37,7 +37,6 @@ def _success(request_id: str, result: dict, start: int) -> Dict[str, Any]:
         "duration_ms":    _now_ms() - start,
         "ram_rss_mb":     _ram_mb(),
     }
-    # Compute serialized size after all fields are set
     payload["response_bytes"] = len(json.dumps(payload))
     return payload
 
@@ -55,10 +54,10 @@ def _timed_get(url: str, params: Optional[dict] = None,
                headers: Optional[dict] = None, timeout: int = 20) -> Dict[str, Any]:
     """
     Wrapper around requests.get that records:
-      request_sent_ms    — epoch-ms when the request was dispatched
-      response_recv_ms   — epoch-ms when the full response was received
+      request_sent_ms     — epoch-ms when the request was dispatched
+      response_recv_ms    — epoch-ms when the full response was received
       request_duration_ms — wall time of the round-trip
-      response_bytes     — raw byte length of the response body
+      response_bytes      — raw byte length of the response body
     Returns a dict with those fields plus the Response object under 'response'.
     Raises on HTTP errors so callers can handle via raise_for_status().
     """
@@ -538,7 +537,6 @@ def m8_ec2(request_id: str | None = None) -> Dict[str, Any]:
                     "response_bytes": g2["response_bytes"],
                     "count": len(featured)})
 
-        # final_price in cents
         all_items = top_sellers[:10] + featured[:10]
         prices = [item["final_price"] / 100.0 for item in all_items if item.get("final_price") is not None]
         if not prices:
@@ -598,12 +596,12 @@ def m9_ec2(request_id: str | None = None) -> Dict[str, Any]:
                         "response_bytes": 0, "results": 1, "note": "fallback"})
 
         # GET 2 - Repology project info (nixos_info step)
-        pkg_detail = []
+        nix_pkgs = []
         try:
             g2 = _timed_get(f"{REPOLOGY_BASE}/project/nodejs", headers=HEADERS, timeout=20)
             if g2["response"].status_code == 200:
                 pkg_detail = g2["response"].json()
-            nix_pkgs = [p for p in pkg_detail if p.get("repo", "").startswith("nix")]
+                nix_pkgs = [p for p in pkg_detail if p.get("repo", "").startswith("nix")]
             log.append({"step": "nixos_info",
                         "request_sent_ms": g2["request_sent_ms"],
                         "response_recv_ms": g2["response_recv_ms"],
@@ -611,7 +609,6 @@ def m9_ec2(request_id: str | None = None) -> Dict[str, Any]:
                         "response_bytes": g2["response_bytes"],
                         "nix_entries": len(nix_pkgs)})
         except Exception:
-            nix_pkgs = []
             log.append({"step": "nixos_info", "request_duration_ms": 0,
                         "response_bytes": 0, "nix_entries": 0, "note": "fallback"})
 
@@ -634,6 +631,7 @@ def m9_ec2(request_id: str | None = None) -> Dict[str, Any]:
         except Exception:
             log.append({"step": "nixhub_package_versions", "request_duration_ms": 0,
                         "response_bytes": 0, "versions": 0, "note": "fallback"})
+
         if not version_counts:
             version_counts = list(range(1, max(len(nix_pkgs), 5) + 1))
 
@@ -655,7 +653,8 @@ def m9_ec2(request_id: str | None = None) -> Dict[str, Any]:
 
 
 # ---------------------------------------------------------------------------
-# M10 - Wikipedia search -> article -> mobile sections -> mean / median / sum lengths
+# M10 - Wikipedia search -> article -> sections -> mean / median / sum lengths
+# NOTE: Wikipedia mobile-sections API decommissioned; fallback splits wikitext.
 # ---------------------------------------------------------------------------
 
 @mcp.tool()
@@ -701,25 +700,32 @@ def m10_ec2(request_id: str | None = None) -> Dict[str, Any]:
                     "response_bytes": g2["response_bytes"],
                     "char_count": len(raw_content)})
 
-        # GET 3 - mobile sections (structured section list)
-        g3 = _timed_get(
-            f"https://en.wikipedia.org/api/rest_v1/page/mobile-sections/{title.replace(' ', '_')}",
-            headers={**HEADERS, "Accept": "application/json"},
-            timeout=15,
-        )
-        sections = g3["response"].json().get("remaining", {}).get("sections", [])
-        lengths = [len(s.get("text", "")) for s in sections if s.get("text")]
-        log.append({"step": "get_sections",
-                    "request_sent_ms": g3["request_sent_ms"],
-                    "response_recv_ms": g3["response_recv_ms"],
-                    "request_duration_ms": g3["request_duration_ms"],
-                    "response_bytes": g3["response_bytes"],
-                    "sections": len(lengths)})
+        # GET 3 - mobile sections (decommissioned — fallback to wikitext split)
+        lengths = []
+        try:
+            g3 = _timed_get(
+                f"https://en.wikipedia.org/api/rest_v1/page/mobile-sections/{title.replace(' ', '_')}",
+                headers={**HEADERS, "Accept": "application/json"},
+                timeout=15,
+            )
+            sections = g3["response"].json().get("remaining", {}).get("sections", [])
+            lengths = [len(s.get("text", "")) for s in sections if s.get("text")]
+            log.append({"step": "get_sections",
+                        "request_sent_ms": g3["request_sent_ms"],
+                        "response_recv_ms": g3["response_recv_ms"],
+                        "request_duration_ms": g3["request_duration_ms"],
+                        "response_bytes": g3["response_bytes"],
+                        "sections": len(lengths)})
+        except Exception:
+            log.append({"step": "get_sections", "request_duration_ms": 0,
+                        "response_bytes": 0, "sections": 0,
+                        "note": "mobile-sections API decommissioned, using wikitext fallback"})
 
         # Fallback: split wikitext on == headers ==
         if not lengths:
             parts = raw_content.split("==")
             lengths = [len(p) for p in parts if len(p.strip()) > 80]
+
         if not lengths:
             return _error(rid, "NO_SECTIONS", "Could not parse article sections", start)
 
@@ -739,7 +745,9 @@ def m10_ec2(request_id: str | None = None) -> Dict[str, Any]:
         return _error(rid, "M10_FAILED", str(e), start)
 
 
+# ---------------------------------------------------------------------------
 # Entry point
 # ---------------------------------------------------------------------------
+
 if __name__ == "__main__":
     mcp.run(transport="streamable-http", host="0.0.0.0", port=8000)
