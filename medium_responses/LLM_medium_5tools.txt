@@ -1,0 +1,130 @@
+UNIFIED MULTI-SOURCE BRIEF — EC2 MEDIUM WORKLOAD CHAIN (5 TOOLS)
+Generated from live tool responses. All values copied directly from tool result fields.
+April 12, 2026
+==============================================================================
+
+1. STATUS PARAGRAPH 
+
+All five medium-tier chain tools completed with status "success". No failures occurred.
+Below are per-tool resource and timing details drawn from each result's top-level fields
+and chain_log entries.
+
+m1_ec2  (Open-Meteo / New York Weather)
+  duration_ms: 452  |  ram_rss_mb: 89.01  |  response_bytes: 579
+  chain_log steps:
+    get_weather_forecast     request_duration_ms: 452
+
+m3_ec2  (Hacker News Top Stories)
+  duration_ms: 1,157  |  ram_rss_mb: 89.01  |  response_bytes: 2,380
+  chain_log steps:
+    fetch_top_stories        request_duration_ms: (various per story)
+    fetch_story_10           request_duration_ms: 318   (slowest step)
+
+m5_ec2  (Met Museum / Impressionism)
+  duration_ms: 737  |  ram_rss_mb: 89.01  |  response_bytes: 710
+  chain_log steps:
+    search_museum_objects    request_duration_ms: (step 1)
+    get_museum_object        request_duration_ms: 504   (slowest step)
+
+m7_ec2  (OKX / BTC-USDT + ETH-USDT)
+  duration_ms: 446  |  ram_rss_mb: 89.01  |  response_bytes: 647
+  chain_log steps:
+    get_candlesticks         request_duration_ms: (step 1)
+    get_price_eth            request_duration_ms: 223   (slowest step)
+
+m10_ec2  (Wikipedia / Distributed Computing)
+  duration_ms: 628  |  ram_rss_mb: 89.01  |  response_bytes: 851
+  chain_log steps:
+    search_wikipedia         request_duration_ms: 389   (slowest step)
+    get_article              request_duration_ms: (step 2)
+    get_sections             request_duration_ms: 0     (fallback)
+
+==============================================================================
+
+2. RESULTS TABLE 
+
+Columns: Tool | Source | Key Result | Stat Used | Value | Status
+
+Tool    | Source                      | Key Result                                          | Stat Used               | Value           | Status
+--------|-----------------------------|-----------------------------------------------------|-------------------------|-----------------|--------
+m1_ec2  | Open-Meteo, New York        | 7-day daily max temps (C)                           | stats.mean              | 23.11 C         | success
+--------|-----------------------------|-----------------------------------------------------|-------------------------|-----------------|--------
+m1_ec2  | Open-Meteo, New York        | 7-day daily max temps (C)                           | stats.median            | 25.2 C          | success
+--------|-----------------------------|-----------------------------------------------------|-------------------------|-----------------|--------
+m1_ec2  | Open-Meteo, New York        | 7-day daily max temps (C)                           | stats.min               | 12.4 C          | success
+--------|-----------------------------|-----------------------------------------------------|-------------------------|-----------------|--------
+m1_ec2  | Open-Meteo, New York        | 7-day daily max temps (C)                           | stats.max               | 28.0 C          | success
+--------|-----------------------------|-----------------------------------------------------|-------------------------|-----------------|--------
+m3_ec2  | Hacker News                 | 10 story scores; top: "The peril of laziness lost"  | stats.mean              | 128.5           | success
+--------|-----------------------------|-----------------------------------------------------|-------------------------|-----------------|--------
+m3_ec2  | Hacker News                 | 10 story scores                                     | stats.median            | 117.0           | success
+--------|-----------------------------|-----------------------------------------------------|-------------------------|-----------------|--------
+m3_ec2  | Hacker News                 | 10 story scores                                     | stats.mode              | 124             | success
+--------|-----------------------------|-----------------------------------------------------|-------------------------|-----------------|--------
+m5_ec2  | Met Museum (197 results)    | First object: "Garden at Sainte-Adresse" (1867)     | stats.mean              | 463,746.70      | success
+--------|-----------------------------|-----------------------------------------------------|-------------------------|-----------------|--------
+m5_ec2  | Met Museum                  | 20 sampled object IDs                               | stats.median            | 437,705.0       | success
+--------|-----------------------------|-----------------------------------------------------|-------------------------|-----------------|--------
+m5_ec2  | Met Museum                  | 20 sampled object IDs                               | stats.sum               | 9,274,934       | success
+--------|-----------------------------|-----------------------------------------------------|-------------------------|-----------------|--------
+m7_ec2  | OKX BTC-USDT (48 candles)   | ETH price: $2,209.08                                | stats.close_mean        | 72,266.88       | success
+--------|-----------------------------|-----------------------------------------------------|-------------------------|-----------------|--------
+m7_ec2  | OKX BTC-USDT                | 48-hour close prices                                | stats.close_median      | 72,716.80       | success
+--------|-----------------------------|-----------------------------------------------------|-------------------------|-----------------|--------
+m7_ec2  | OKX BTC-USDT                | 48-hour close prices                                | stats.close_sum         | 3,468,810.30    | success
+--------|-----------------------------|-----------------------------------------------------|-------------------------|-----------------|--------
+m7_ec2  | OKX BTC-USDT                | 48-hour volume                                      | stats.volume_sum        | 8,448.159 BTC   | success
+--------|-----------------------------|-----------------------------------------------------|-------------------------|-----------------|--------
+m10_ec2 | Wikipedia "Distributed      | 22 sections, 58,373 chars                           | stats.mean_section_len  | 2,629.18 chars  | success
+        | computing"                  |                                                     |                         |                 |
+--------|-----------------------------|-----------------------------------------------------|-------------------------|-----------------|--------
+m10_ec2 | Wikipedia                   | Section lengths                                     | stats.median_section_len| 2,476.0 chars   | success
+--------|-----------------------------|-----------------------------------------------------|-------------------------|-----------------|--------
+m10_ec2 | Wikipedia                   | Section lengths                                     | stats.sum_section_len   | 57,842 chars    | success
+
+==============================================================================
+
+3. PER-TOOL METRICS TABLE 
+
+Columns: Tool | duration_ms | ram_rss_mb | response_bytes | Steps | Slowest Step | Slowest Step ms
+
+Tool    | duration_ms | ram_rss_mb | response_bytes | Steps | Slowest Step          | Slowest Step ms
+--------|-------------|------------|----------------|-------|-----------------------|----------------
+m1_ec2  |         452 |      89.01 |            579 |     1 | get_weather_forecast  |             452
+--------|-------------|------------|----------------|-------|-----------------------|----------------
+m3_ec2  |       1,157 |      89.01 |          2,380 |    11 | fetch_story_10        |             318
+--------|-------------|------------|----------------|-------|-----------------------|----------------
+m5_ec2  |         737 |      89.01 |            710 |     2 | get_museum_object     |             504
+--------|-------------|------------|----------------|-------|-----------------------|----------------
+m7_ec2  |         446 |      89.01 |            647 |     2 | get_price_eth         |             223
+--------|-------------|------------|----------------|-------|-----------------------|----------------
+m10_ec2 |         628 |      89.01 |            851 |     3 | search_wikipedia      |             389
+
+==============================================================================
+
+4. DERIVED RESULT 
+
+Derivation: Met Museum Object ID Sum vs BTC Notional Cost
+----------------------------------------------------------
+Field path  : m7_ec2 -> result.stats.volume_sum
+Exact value : 8,448.159 BTC
+
+Field path  : m5_ec2 -> result.stats.sum (object ID sum)
+Exact value : 9,274,934
+
+Field path  : m7_ec2 -> result.stats.close_mean
+Exact value : 72,266.88 USD/BTC
+
+Operation   : Met Museum object ID sum / BTC close mean
+            : 9,274,934 / 72,266.88 = 128.35 BTC
+
+Final result: 128.35 BTC notional cost
+
+Interpretation: The 48-hour OKX trading volume of 8,448.159 BTC represents
+approximately 65.8% of the 128.35 BTC notional cost — meaning a single day's
+BTC volume on OKX would almost cover two-thirds of that notional figure,
+illustrating how liquid the BTC-USDT market is relative to the scale of
+Met Museum object ID magnitudes.
+
+==============================================================================
+END OF BRIEF
