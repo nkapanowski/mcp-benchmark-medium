@@ -1,0 +1,110 @@
+EC2 MEDIUM WORKLOAD MCP — UNIFIED TECHNICAL BRIEF
+
+1. STATUS PARAGRAPH
+
+All 10 tools completed successfully (status: "success").
+Chain-level metrics follow.
+
+Tool       | duration_ms | ram_rss_mb | response_bytes | Chain-step request_duration_ms
+-----------|-------------|------------|----------------|--------------------------------
+m1_ec2     |         445 |      84.82 |            579 | get_weather_forecast: 445 ms
+m2_ec2     |         979 |      86.43 |            819 | findParks: 571 ms → getParkDetails: 406 ms
+m3_ec2     |       1,063 |      87.20 |          2,402 | fetch_top_stories: 152 ms → story_1: 132 ms → story_2: 109 ms → story_3: 73 ms → story_4: 74 ms → story_5: 79 ms → story_6: 100 ms → story_7: 74 ms → story_8: 76 ms → story_9: 76 ms → story_10: 107 ms
+m4_ec2     |         119 |      87.20 |            689 | search_models: 67 ms → get_model_info: 52 ms
+m5_ec2     |         651 |      87.20 |            709 | search_museum_objects: 181 ms → get_museum_object: 470 ms
+m6_ec2     |       1,105 |      87.20 |            882 | get_car_brands: 608 ms → search_car_price: 324 ms → get_vehicles_by_type: 172 ms
+m7_ec2     |         562 |      87.20 |            646 | get_candlesticks: 232 ms → get_price_eth: 330 ms
+m8_ec2     |         205 |      87.46 |            737 | get_steam_top_sellers: 58 ms → get_steam_most_played: 146 ms
+m9_ec2     |       1,340 |      89.01 |            740 | nixos_search: 644 ms → nixos_info: 617 ms → nixhub_package_versions: 0 ms (fallback)
+m10_ec2    |         501 |      89.01 |            851 | search_wikipedia: 287 ms → get_article: 133 ms → get_sections: 0 ms (fallback)
+
+2. Results Table
+
+Tool       | Source                              | Key Result                                                                 | Stat Used              | Value          | Status
+-----------|-------------------------------------|----------------------------------------------------------------------------|------------------------|----------------|--------
+m1_ec2     | Open-Meteo / New York               | 7-day daily max temps (C): 12.5, 28.0, 25.4, 27.9, 23.9, 26.4, 25.8      | stats.mean             | 24.27 C        | success
+m2_ec2     | NPS API (15 CA parks)               | 15 parks returned; detail park: Alcatraz Island (code: alca)               | stats.mean latitude    | 36.2033        | success
+m3_ec2     | Hacker News (Reddit blocked on AWS) | 10 stories; top: "Building a SaaS in 2026 Using Only EU Infrastructure"    | stats.mean score       | 143.7          | success
+m4_ec2     | Hugging Face Hub                    | 20 text-classification models; top: cross-encoder/ms-marco-MiniLM-L6-v2   | stats.mean downloads   | 2,855,446.25   | success
+m5_ec2     | Met Museum API                      | 197 impressionism results; first object: "Garden at Sainte-Adresse" (1867) | stats.mean object ID   | 463,746.7      | success
+m6_ec2     | FIPE Brazilian Auto API             | 106 car brands; FIAT code: 21; 583 FIAT models; 100 moto brands            | stats.mean_model_code  | 4,610.64       | success
+m7_ec2     | OKX Exchange                        | 48 BTC-USDT hourly candles; live ETH-USDT: $2,192.63                       | stats.close_mean BTC   | 72,431.14      | success
+m8_ec2     | Steam Store API                     | 10 top sellers + 10 featured games; 20 prices sampled                      | stats.mean_price_usd   | $26.57         | success
+m9_ec2     | Repology + NixOS                    | 9 search results; 43 nodejs nix entries; 43 version entries                | stats.mean version ct  | 22             | success
+m10_ec2    | Wikipedia                           | Article: "Distributed computing"; 22 sections; 58,373 article chars        | stats.mean_section_len | 2,629.18 chars | success
+
+Note: m3 substitutes Hacker News for Reddit (Reddit blocks all AWS IP ranges).
+Note: m8 substitutes Steam Store API for Game Trends API (decommissioned).
+Note: m9 nixhub_package_versions fell back to fallback — nixhub did not respond.
+Note: m10 mobile-sections API decommissioned — wikitext fallback used successfully.
+
+3. Per-Tool Metrics Table
+
+Tool       | duration_ms | ram_rss_mb | response_bytes | Steps | Slowest Step            | Slowest Step ms
+-----------|-------------|------------|----------------|-------|-------------------------|----------------
+m1_ec2     |         445 |      84.82 |            579 |     1 | get_weather_forecast    |             445
+m2_ec2     |         979 |      86.43 |            819 |     2 | findParks               |             571
+m3_ec2     |       1,063 |      87.20 |          2,402 |    11 | fetch_top_stories       |             152
+m4_ec2     |         119 |      87.20 |            689 |     2 | search_models           |              67
+m5_ec2     |         651 |      87.20 |            709 |     2 | get_museum_object       |             470
+m6_ec2     |       1,105 |      87.20 |            882 |     3 | get_car_brands          |             608
+m7_ec2     |         562 |      87.20 |            646 |     2 | get_price_eth           |             330
+m8_ec2     |         205 |      87.46 |            737 |     2 | get_steam_most_played   |             146
+m9_ec2     |       1,340 |      89.01 |            740 |     3 | nixos_search            |             644
+m10_ec2    |         501 |      89.01 |            851 |     3 | search_wikipedia        |             287
+
+Totals / Extremes:
+  Fastest tool:   m4_ec2 at 119 ms
+  Slowest tool:   m9_ec2 at 1,340 ms
+  Peak RAM:       89.01 MB (m9_ec2 and m10_ec2)
+  Largest payload: m3_ec2 at 2,402 bytes
+
+
+4. Derived Results
+
+Derivation A — BTC-to-ETH Price Ratio
+--------------------------------------
+  m7_ec2.result.stats.close_mean  = 72,431.14
+  m7_ec2.result.eth_usdt_price    =  2,192.63
+
+  Operation: 72431.14 / 2192.63
+  Final result: 33.03
+
+  Interpretation: BTC mean close price over the 48-hour window
+  is 33.03x the live ETH-USDT price.
+
+
+Derivation B — Total Serialized Payload Across All 10 Chains
+-------------------------------------------------------------
+  m1_ec2.response_bytes  =   579
+  m2_ec2.response_bytes  =   819
+  m3_ec2.response_bytes  = 2,402
+  m4_ec2.response_bytes  =   689
+  m5_ec2.response_bytes  =   709
+  m6_ec2.response_bytes  =   882
+  m7_ec2.response_bytes  =   646
+  m8_ec2.response_bytes  =   737
+  m9_ec2.response_bytes  =   740
+  m10_ec2.response_bytes =   851
+
+  Operation: Sum of all 10 response_bytes values
+  Final result: 9,054 bytes
+
+  Interpretation: Total serialized payload returned across
+  the entire medium-tier workload suite.
+
+
+Derivation C — HN Mean Score vs. Steam Mean Price Ratio
+--------------------------------------------------------
+  m3_ec2.result.stats.mean         = 143.7
+  m8_ec2.result.stats.mean_price_usd = 26.57
+
+  Operation: 143.7 / 26.57
+  Final result: 5.41
+
+  Interpretation: The mean Hacker News story score is 5.41x
+  the mean Steam game price in USD across the same sample window.
+
+================================================================
+END OF BRIEF
+================================================================
