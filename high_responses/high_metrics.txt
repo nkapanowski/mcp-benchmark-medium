@@ -1,0 +1,638 @@
+=== h1_ec2 ===
+{
+    "request_id":  "e12379f4-574e-4e73-bd55-3e5853ab8ab0",
+    "status":  "success",
+    "result":  {
+                   "chain":  "H1",
+                   "paper_id":  "2508.14704v1",
+                   "pdf_size_kb":  1842.19,
+                   "num_pages":  31,
+                   "total_words":  23194,
+                   "stats":  {
+                                 "mean":  748.19,
+                                 "median":  686,
+                                 "sum":  23194,
+                                 "min":  115,
+                                 "max":  1512
+                             },
+                   "chain_log":  [
+                                     {
+                                         "step":  "search_arxiv",
+                                         "request_sent_ms":  1776019062164,
+                                         "response_recv_ms":  1776019062338,
+                                         "request_duration_ms":  174,
+                                         "response_bytes":  22463,
+                                         "found":  10
+                                     },
+                                     {
+                                         "step":  "download_arxiv",
+                                         "request_duration_ms":  144,
+                                         "response_bytes":  1886400,
+                                         "size_kb":  1842.19
+                                     },
+                                     {
+                                         "step":  "read_arxiv_paper",
+                                         "request_duration_ms":  1087,
+                                         "response_bytes":  0,
+                                         "pages":  31
+                                     }
+                                 ]
+               },
+    "duration_ms":  1406,
+    "ram_rss_mb":  118.18,
+    "response_bytes":  689
+}
+
+=== h2_ec2 ===
+{
+    "request_id":  "30c8051b-c693-4499-ad07-cc39f0e0d300",
+    "status":  "success",
+    "result":  {
+                   "chain":  "H2",
+                   "nct_id":  "NCT01909453",
+                   "trials_searched":  5,
+                   "stats":  {
+                                 "mean_enrollment":  234,
+                                 "sum_enrollment":  1170,
+                                 "median_enrollment":  18
+                             },
+                   "chain_log":  [
+                                     {
+                                         "step":  "trial_searcher",
+                                         "request_sent_ms":  1776019063661,
+                                         "response_recv_ms":  1776019063783,
+                                         "request_duration_ms":  122,
+                                         "response_bytes":  1577,
+                                         "found":  5
+                                     },
+                                     {
+                                         "step":  "trial_getter",
+                                         "request_sent_ms":  1776019063783,
+                                         "response_recv_ms":  1776019063933,
+                                         "request_duration_ms":  150,
+                                         "response_bytes":  552995
+                                     },
+                                     {
+                                         "step":  "trial_references",
+                                         "request_sent_ms":  1776019063933,
+                                         "response_recv_ms":  1776019064405,
+                                         "request_duration_ms":  472,
+                                         "response_bytes":  4298
+                                     },
+                                     {
+                                         "step":  "trial_locations",
+                                         "request_sent_ms":  1776019064406,
+                                         "response_recv_ms":  1776019064523,
+                                         "request_duration_ms":  117,
+                                         "response_bytes":  26380
+                                     },
+                                     {
+                                         "step":  "trial_outcomes",
+                                         "request_sent_ms":  1776019064524,
+                                         "response_recv_ms":  1776019064639,
+                                         "request_duration_ms":  115,
+                                         "response_bytes":  4500
+                                     }
+                                 ]
+               },
+    "duration_ms":  979,
+    "ram_rss_mb":  118.18,
+    "response_bytes":  1051
+}
+
+=== h3_ec2 ===
+{
+    "request_id":  "500a4227-7525-420c-a8ac-0f82f079cda5",
+    "status":  "success",
+    "result":  {
+                   "chain":  "H3",
+                   "feed_count":  78,
+                   "catalog_count":  20,
+                   "stats":  {
+                                 "diameter_mean":  78.8323,
+                                 "diameter_median":  34.919332238725005,
+                                 "diameter_sum":  6148.9202,
+                                 "diameter_min":  8.3858,
+                                 "diameter_max":  737.1275,
+                                 "miss_distance_sum":  2598803723.13,
+                                 "hazardous_mode":  "False",
+                                 "records_processed":  78
+                             },
+                   "chain_log":  [
+                                     {
+                                         "step":  "get_asteroids_feed",
+                                         "request_sent_ms":  1776019064718,
+                                         "response_recv_ms":  1776019065267,
+                                         "request_duration_ms":  549,
+                                         "response_bytes":  90759,
+                                         "neos_found":  78
+                                     },
+                                     {
+                                         "step":  "browse_asteroids",
+                                         "request_sent_ms":  1776019065268,
+                                         "response_recv_ms":  1776019066090,
+                                         "request_duration_ms":  822,
+                                         "response_bytes":  322510,
+                                         "catalog_size":  20
+                                     },
+                                     {
+                                         "step":  "get_asteroid_lookup",
+                                         "request_sent_ms":  1776019066093,
+                                         "response_recv_ms":  1776019066530,
+                                         "request_duration_ms":  437,
+                                         "response_bytes":  16980
+                                     }
+                                 ]
+               },
+    "duration_ms":  1812,
+    "ram_rss_mb":  118.18,
+    "response_bytes":  940
+}
+
+=== h4_ec2 ===
+{
+    "request_id":  "6ec16432-f225-4012-bd8a-87a592137557",
+    "status":  "success",
+    "result":  {
+                   "chain":  "H4",
+                   "gene":  "BRAF",
+                   "top_pmid":  "41964632",
+                   "article_title":  "Erdheim-Chester Disease: A Rare Presentation With Atrial Flutter and Severe Sinus Node Dysfunction.",
+                   "arxiv_papers_found":  5,
+                   "pdf_size_kb":  639.49,
+                   "num_pages":  62,
+                   "citation_stats":  {
+                                          "mean":  4.6,
+                                          "sum":  23,
+                                          "median":  0
+                                      },
+                   "word_count_stats":  {
+                                            "mean":  567.27,
+                                            "median":  568.5,
+                                            "sum":  35171,
+                                            "min":  143,
+                                            "max":  792
+                                        },
+                   "chain_log":  [
+                                     {
+                                         "step":  "article_searcher",
+                                         "request_sent_ms":  1776019066625,
+                                         "response_recv_ms":  1776019066755,
+                                         "request_duration_ms":  130,
+                                         "response_bytes":  291,
+                                         "pmids_found":  5
+                                     },
+                                     {
+                                         "step":  "article_getter",
+                                         "request_sent_ms":  1776019066755,
+                                         "response_recv_ms":  1776019067026,
+                                         "request_duration_ms":  271,
+                                         "response_bytes":  7657,
+                                         "pmid":  "41964632"
+                                     },
+                                     {
+                                         "step":  "search_arxiv",
+                                         "request_sent_ms":  1776019067026,
+                                         "response_recv_ms":  1776019067094,
+                                         "request_duration_ms":  68,
+                                         "response_bytes":  11651,
+                                         "arxiv_found":  5
+                                     },
+                                     {
+                                         "step":  "download_arxiv",
+                                         "request_duration_ms":  34,
+                                         "response_bytes":  654834,
+                                         "size_kb":  639.49
+                                     },
+                                     {
+                                         "step":  "read_arxiv_paper",
+                                         "request_duration_ms":  3471,
+                                         "response_bytes":  0,
+                                         "pages":  62
+                                     }
+                                 ]
+               },
+    "duration_ms":  4535,
+    "ram_rss_mb":  112.3,
+    "response_bytes":  1229
+}
+
+=== h5_ec2 ===
+{
+    "request_id":  "a1b4c4a9-d709-447f-af33-af1dd9e8741d",
+    "status":  "success",
+    "result":  {
+                   "chain":  "H5",
+                   "addresses_geocoded":  4,
+                   "matrix_size":  "4x4",
+                   "route_distance_km":  10.57,
+                   "route_duration_minutes":  12.6,
+                   "stats":  {
+                                 "distance_mean_m":  517691,
+                                 "distance_median_m":  19514.0,
+                                 "distance_sum_m":  8283056,
+                                 "duration_sum_s":  290191,
+                                 "matrix_elements":  16
+                             },
+                   "chain_log":  [
+                                     {
+                                         "step":  "maps_geocode",
+                                         "address":  "1600 Amphitheatre Parkway, Mountain View, CA",
+                                         "request_sent_ms":  1776019071252,
+                                         "response_recv_ms":  1776019071402,
+                                         "request_duration_ms":  150,
+                                         "response_bytes":  3936,
+                                         "found":  true
+                                     },
+                                     {
+                                         "step":  "maps_geocode",
+                                         "address":  "1 Infinite Loop, Cupertino, CA",
+                                         "request_sent_ms":  1776019071402,
+                                         "response_recv_ms":  1776019071547,
+                                         "request_duration_ms":  145,
+                                         "response_bytes":  4144,
+                                         "found":  true
+                                     },
+                                     {
+                                         "step":  "maps_geocode",
+                                         "address":  "1 Microsoft Way, Redmond, WA",
+                                         "request_sent_ms":  1776019071548,
+                                         "response_recv_ms":  1776019071688,
+                                         "request_duration_ms":  140,
+                                         "response_bytes":  3282,
+                                         "found":  true
+                                     },
+                                     {
+                                         "step":  "maps_geocode",
+                                         "address":  "410 Terry Ave N, Seattle, WA",
+                                         "request_sent_ms":  1776019071689,
+                                         "response_recv_ms":  1776019071753,
+                                         "request_duration_ms":  64,
+                                         "response_bytes":  217,
+                                         "found":  false
+                                     },
+                                     {
+                                         "step":  "maps_geocode",
+                                         "address":  "1 Hacker Way, Menlo Park, CA",
+                                         "request_sent_ms":  1776019071755,
+                                         "response_recv_ms":  1776019071899,
+                                         "request_duration_ms":  144,
+                                         "response_bytes":  3258,
+                                         "found":  true
+                                     },
+                                     {
+                                         "step":  "maps_distance_matrix",
+                                         "request_sent_ms":  1776019071901,
+                                         "response_recv_ms":  1776019072098,
+                                         "request_duration_ms":  197,
+                                         "response_bytes":  6163,
+                                         "rows":  4
+                                     },
+                                     {
+                                         "step":  "maps_directions",
+                                         "request_sent_ms":  1776019072098,
+                                         "response_recv_ms":  1776019072221,
+                                         "request_duration_ms":  123,
+                                         "response_bytes":  15888,
+                                         "routes":  1
+                                     }
+                                 ]
+               },
+    "duration_ms":  969,
+    "ram_rss_mb":  112.3,
+    "response_bytes":  1781
+}
+
+=== h6_ec2 ===
+{
+    "request_id":  "5f1f72a7-a3b9-48a8-a44f-1d7b857cc54d",
+    "status":  "success",
+    "result":  {
+                   "chain":  "H6",
+                   "network":  "ethereum",
+                   "top_pool":  "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+                   "stats":  {
+                                 "price_mean":  0.999893,
+                                 "price_median":  0.9998697854389968,
+                                 "price_sum":  167.981988,
+                                 "price_min":  0.997867,
+                                 "price_max":  1.003126,
+                                 "volume_sum":  640055669.0,
+                                 "candles_processed":  168
+                             },
+                   "chain_log":  [
+                                     {
+                                         "step":  "getNetworks",
+                                         "request_sent_ms":  1776019072323,
+                                         "response_recv_ms":  1776019072605,
+                                         "request_duration_ms":  282,
+                                         "response_bytes":  3977
+                                     },
+                                     {
+                                         "step":  "getNetworkDexes",
+                                         "request_sent_ms":  1776019072605,
+                                         "response_recv_ms":  1776019073131,
+                                         "request_duration_ms":  526,
+                                         "response_bytes":  2581
+                                     },
+                                     {
+                                         "step":  "getNetworkPools",
+                                         "request_sent_ms":  1776019073132,
+                                         "response_recv_ms":  1776019073666,
+                                         "request_duration_ms":  534,
+                                         "response_bytes":  26457
+                                     },
+                                     {
+                                         "step":  "getPoolDetails",
+                                         "request_sent_ms":  1776019073667,
+                                         "response_recv_ms":  1776019074044,
+                                         "request_duration_ms":  377,
+                                         "response_bytes":  2459
+                                     },
+                                     {
+                                         "step":  "getPoolOHLCV",
+                                         "request_sent_ms":  1776019074044,
+                                         "response_recv_ms":  1776019074363,
+                                         "request_duration_ms":  319,
+                                         "response_bytes":  32462,
+                                         "candles":  168
+                                     }
+                                 ]
+               },
+    "duration_ms":  2041,
+    "ram_rss_mb":  112.3,
+    "response_bytes":  1195
+}
+
+=== h7_ec2 ===
+{
+    "request_id":  "b5081c00-d03b-4c98-9dce-8ff4174c6ec5",
+    "status":  "success",
+    "result":  {
+                   "chain":  "H7",
+                   "package":  "python",
+                   "search_results":  50,
+                   "versions_found":  20,
+                   "flakes_found":  200,
+                   "stats":  {
+                                 "mean":  92.32,
+                                 "median":  90.5,
+                                 "sum":  20310,
+                                 "min":  1,
+                                 "max":  200,
+                                 "records":  220
+                             },
+                   "chain_log":  [
+                                     {
+                                         "step":  "nixos_search",
+                                         "request_sent_ms":  1776019074468,
+                                         "response_recv_ms":  1776019076096,
+                                         "request_duration_ms":  1628,
+                                         "response_bytes":  2047980,
+                                         "results":  50
+                                     },
+                                     {
+                                         "step":  "nixos_info",
+                                         "request_sent_ms":  1776019076121,
+                                         "response_recv_ms":  1776019076602,
+                                         "request_duration_ms":  481,
+                                         "response_bytes":  2,
+                                         "nix_entries":  0
+                                     },
+                                     {
+                                         "step":  "nixhub_package_versions",
+                                         "request_duration_ms":  0,
+                                         "response_bytes":  0,
+                                         "versions":  0,
+                                         "note":  "fallback"
+                                     },
+                                     {
+                                         "step":  "nixhub_find_version",
+                                         "request_duration_ms":  0,
+                                         "response_bytes":  0,
+                                         "found":  false,
+                                         "note":  "fallback"
+                                     },
+                                     {
+                                         "step":  "nixos_flakes_search",
+                                         "request_sent_ms":  1776019076826,
+                                         "response_recv_ms":  1776019078657,
+                                         "request_duration_ms":  1831,
+                                         "response_bytes":  2047980,
+                                         "flakes":  200
+                                     }
+                                 ]
+               },
+    "duration_ms":  4212,
+    "ram_rss_mb":  119.4,
+    "response_bytes":  1073
+}
+
+=== h8_ec2 ===
+{
+    "request_id":  "6b9ed78e-be4f-4f4e-bb33-af281b79d2af",
+    "status":  "success",
+    "result":  {
+                   "chain":  "H8",
+                   "source":  "Hacker News",
+                   "stories_fetched":  25,
+                   "top_stories":  [
+                                       {
+                                           "id":  47742680,
+                                           "title":  "Apple has removed most of the towns and villages in Lebanon ",
+                                           "score":  77
+                                       },
+                                       {
+                                           "id":  47742200,
+                                           "title":  "Show HN: boringBar â a taskbar-style dock replacement for ma",
+                                           "score":  53
+                                       },
+                                       {
+                                           "id":  47738827,
+                                           "title":  "Bring Back Idiomatic Design",
+                                           "score":  259
+                                       }
+                                   ],
+                   "total_comments_analyzed":  52,
+                   "stats":  {
+                                 "score_mean":  7.07,
+                                 "score_median":  0,
+                                 "score_sum":  389,
+                                 "type_mode":  "comment",
+                                 "score_min":  0,
+                                 "score_max":  259
+                             },
+                   "chain_log":  [
+                                     {
+                                         "step":  "fetch_top_stories",
+                                         "request_sent_ms":  1776019078760,
+                                         "response_recv_ms":  1776019078843,
+                                         "request_duration_ms":  83,
+                                         "response_bytes":  4501,
+                                         "stories":  25
+                                     },
+                                     {
+                                         "step":  "fetch_story_1",
+                                         "request_sent_ms":  1776019078844,
+                                         "response_recv_ms":  1776019078958,
+                                         "request_duration_ms":  114,
+                                         "response_bytes":  391,
+                                         "story_id":  47742680,
+                                         "story_score":  77
+                                     },
+                                     {
+                                         "step":  "fetch_story_2",
+                                         "request_sent_ms":  1776019079986,
+                                         "response_recv_ms":  1776019080113,
+                                         "request_duration_ms":  127,
+                                         "response_bytes":  1904,
+                                         "story_id":  47742200,
+                                         "story_score":  53
+                                     },
+                                     {
+                                         "step":  "fetch_story_3",
+                                         "request_sent_ms":  1776019082041,
+                                         "response_recv_ms":  1776019082116,
+                                         "request_duration_ms":  75,
+                                         "response_bytes":  525,
+                                         "story_id":  47738827,
+                                         "story_score":  259
+                                     }
+                                 ]
+               },
+    "duration_ms":  5167,
+    "ram_rss_mb":  113.66,
+    "response_bytes":  1398
+}
+
+=== h9_ec2 ===
+{
+    "request_id":  "f91d80b1-1233-4689-8d3c-6cd7333b83a3",
+    "status":  "success",
+    "result":  {
+                   "chain":  "H9",
+                   "query":  "serverless cloud",
+                   "databases_searched":  3,
+                   "pubmed_results":  5,
+                   "biorxiv_results":  100,
+                   "arxiv_results":  5,
+                   "pdf_size_kb":  1267.38,
+                   "word_count_stats":  {
+                                            "mean":  966.4,
+                                            "median":  933,
+                                            "sum":  4832,
+                                            "min":  857,
+                                            "max":  1190,
+                                            "pages":  5
+                                        },
+                   "chain_log":  [
+                                     {
+                                         "step":  "search_pubmed",
+                                         "request_sent_ms":  1776019084025,
+                                         "response_recv_ms":  1776019084217,
+                                         "request_duration_ms":  192,
+                                         "response_bytes":  418,
+                                         "results":  5
+                                     },
+                                     {
+                                         "step":  "search_biorxiv",
+                                         "request_sent_ms":  1776019084217,
+                                         "response_recv_ms":  1776019089131,
+                                         "request_duration_ms":  4914,
+                                         "response_bytes":  221252,
+                                         "results":  100
+                                     },
+                                     {
+                                         "step":  "search_arxiv",
+                                         "request_sent_ms":  1776019089132,
+                                         "response_recv_ms":  1776019089194,
+                                         "request_duration_ms":  62,
+                                         "response_bytes":  11820,
+                                         "results":  5
+                                     },
+                                     {
+                                         "step":  "download_arxiv",
+                                         "request_duration_ms":  44,
+                                         "response_bytes":  1297801,
+                                         "size_kb":  1267.38
+                                     },
+                                     {
+                                         "step":  "read_arxiv_paper",
+                                         "request_duration_ms":  299,
+                                         "response_bytes":  0,
+                                         "pages":  5
+                                     }
+                                 ]
+               },
+    "duration_ms":  5512,
+    "ram_rss_mb":  115.0,
+    "response_bytes":  1087
+}
+
+=== h10_ec2 ===
+{
+    "request_id":  "e431a89d-5404-4ccd-ada0-e7eaca843a62",
+    "status":  "success",
+    "result":  {
+                   "chain":  "H10",
+                   "chemical":  "python bioinformatics",
+                   "nix_package":  "biopython",
+                   "top_pmid":  "41965344",
+                   "article_title":  "PYEAST - A Computational Toolkit for Saccharomyces cerevisiae Genetic Engineering.",
+                   "nix_results":  1,
+                   "versions_found":  5,
+                   "stats":  {
+                                 "mean":  3,
+                                 "median":  3,
+                                 "sum":  15,
+                                 "category_mode":  "unknown",
+                                 "min":  1,
+                                 "max":  5,
+                                 "records":  5
+                             },
+                   "chain_log":  [
+                                     {
+                                         "step":  "article_searcher",
+                                         "request_sent_ms":  1776019089629,
+                                         "response_recv_ms":  1776019089782,
+                                         "request_duration_ms":  153,
+                                         "response_bytes":  1157,
+                                         "pmids":  10
+                                     },
+                                     {
+                                         "step":  "article_getter",
+                                         "request_sent_ms":  1776019089782,
+                                         "response_recv_ms":  1776019089981,
+                                         "request_duration_ms":  199,
+                                         "response_bytes":  10230,
+                                         "pmid":  "41965344"
+                                     },
+                                     {
+                                         "step":  "nixos_search",
+                                         "request_sent_ms":  1776019089982,
+                                         "response_recv_ms":  1776019090480,
+                                         "request_duration_ms":  498,
+                                         "response_bytes":  30127,
+                                         "results":  1
+                                     },
+                                     {
+                                         "step":  "nixos_info",
+                                         "request_sent_ms":  1776019090480,
+                                         "response_recv_ms":  1776019090968,
+                                         "request_duration_ms":  488,
+                                         "response_bytes":  1326,
+                                         "versions":  0
+                                     },
+                                     {
+                                         "step":  "nixhub_package_versions",
+                                         "request_duration_ms":  0,
+                                         "response_bytes":  0,
+                                         "versions":  0,
+                                         "note":  "fallback"
+                                     }
+                                 ]
+               },
+    "duration_ms":  1416,
+    "ram_rss_mb":  115.0,
+    "response_bytes":  1274
+}
