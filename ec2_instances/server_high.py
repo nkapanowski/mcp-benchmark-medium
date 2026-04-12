@@ -9,9 +9,14 @@ from collections import Counter
 from datetime import date, timedelta
 from typing import Any, Dict, List, Optional
 
+import os
+
 import psutil
+from dotenv import load_dotenv
 import requests
 from fastmcp import FastMCP
+
+load_dotenv()
 
 mcp = FastMCP("EC2 High Workload MCP Server")
 
@@ -19,7 +24,8 @@ PUBMED_BASE   = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
 NIXHUB_BASE   = "https://www.nixhub.io/api/v0"
 REPOLOGY_BASE = "https://repology.org/api/v1"
 HN_BASE       = "https://hacker-news.firebaseio.com/v0"
-GMAPS_KEY     = "AIzaSyCkcSPfXlHgRYJ7oVd3MSLR3h4r6oME_EI"
+GMAPS_KEY     = os.environ.get("GMAPS_KEY", "")
+NASA_KEY      = os.environ.get("NASA_KEY", "")
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -215,7 +221,7 @@ def h3_ec2(request_id: str | None = None) -> Dict[str, Any]:
     rid = request_id or str(uuid.uuid4())
     try:
         log = []
-        key = "yc5RVaFw3VqF8e2h9zinRiDnCqyqW0SBE2KCTPs9"
+        key = NASA_KEY
         today = date.today().isoformat()
         end = (date.today() + timedelta(days=7)).isoformat()
 
