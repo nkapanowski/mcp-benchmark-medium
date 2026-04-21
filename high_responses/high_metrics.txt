@@ -1,0 +1,114 @@
+for tool in h1_ec2 h2_ec2 h3_ec2 h4_ec2 h5_ec2 h6_ec2 h7_ec2 h8_ec2 h9_ec2 h10_ec2; do
+  echo "=== $tool ==="
+  SID=$(curl -s -X POST https://d2plqe3qtelgql.cloudfront.net/mcp \
+    -H "Accept: application/json, text/event-stream" \
+    -H "Content-Type: application/json" \
+    -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"test","version":"0.1"}}}' \
+    -D - 2>/dev/null | grep -i mcp-session-id | awk '{print $2}' | tr -d '\r')
+  curl -s -X POST https://d2plqe3qtelgql.cloudfront.net/mcp \
+    -H "Accept: application/json, text/event-stream" \
+    -H "Content-Type: application/json" \
+    -H "mcp-session-id: $SID" \
+    -d "{\"jsonrpc\":\"2.0\",\"id\":2,\"method\":\"tools/call\",\"params\":{\"name\":\"$tool\",\"arguments\":{}}}" 2>/dev/null \
+    | grep "^data:" | sed 's/^data: //' | python3 -c "import sys,json; d=json.load(sys.stdin); sc=d['result']['structuredContent']; print(json.dumps({'tool':'$tool','status':sc.get('status'),'duration_ms':sc.get('duration_ms'),'server_duration_ms':sc.get('server_duration_ms'),'ram_rss_mb':sc.get('ram_rss_mb'),'response_bytes':sc.get('response_bytes')}, indent=2))"
+  echo ""
+done
+=== h1_ec2 ===
+{
+  "tool": "h1_ec2",
+  "status": "success",
+  "duration_ms": 1230,
+  "server_duration_ms": 1229,
+  "ram_rss_mb": 119.61,
+  "response_bytes": 715
+}
+
+=== h2_ec2 ===
+{
+  "tool": "h2_ec2",
+  "status": "success",
+  "duration_ms": 576,
+  "server_duration_ms": 573,
+  "ram_rss_mb": 119.61,
+  "response_bytes": 1074
+}
+
+=== h3_ec2 ===
+{
+  "tool": "h3_ec2",
+  "status": "success",
+  "duration_ms": 1862,
+  "server_duration_ms": 1858,
+  "ram_rss_mb": 119.61,
+  "response_bytes": 967
+}
+
+=== h4_ec2 ===
+{
+  "tool": "h4_ec2",
+  "status": "success",
+  "duration_ms": 5425,
+  "server_duration_ms": 4837,
+  "ram_rss_mb": 119.61,
+  "response_bytes": 1258
+}
+
+=== h5_ec2 ===
+{
+  "tool": "h5_ec2",
+  "status": "success",
+  "duration_ms": 952,
+  "server_duration_ms": 945,
+  "ram_rss_mb": 119.61,
+  "response_bytes": 1809
+}
+
+=== h6_ec2 ===
+{
+  "tool": "h6_ec2",
+  "status": "success",
+  "duration_ms": 2124,
+  "server_duration_ms": 2119,
+  "ram_rss_mb": 119.61,
+  "response_bytes": 1223
+}
+
+=== h7_ec2 ===
+{
+  "tool": "h7_ec2",
+  "status": "success",
+  "duration_ms": 3577,
+  "server_duration_ms": 3453,
+  "ram_rss_mb": 124.38,
+  "response_bytes": 1102
+}
+
+=== h8_ec2 ===
+{
+  "tool": "h8_ec2",
+  "status": "success",
+  "duration_ms": 5312,
+  "server_duration_ms": 395,
+  "ram_rss_mb": 117.65,
+  "response_bytes": 1424
+}
+
+=== h9_ec2 ===
+{
+  "tool": "h9_ec2",
+  "status": "success",
+  "duration_ms": 598,
+  "server_duration_ms": 598,
+  "ram_rss_mb": 119.96,
+  "response_bytes": 1105
+}
+
+=== h10_ec2 ===
+{
+  "tool": "h10_ec2",
+  "status": "success",
+  "duration_ms": 1124,
+  "server_duration_ms": 1090,
+  "ram_rss_mb": 119.96,
+  "response_bytes": 1319
+}
