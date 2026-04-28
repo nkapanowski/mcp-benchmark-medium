@@ -1,0 +1,230 @@
+UNIFIED TECHNICAL BRIEF — EC2 MEDIUM WORKLOAD MCP (10-TOOL RUN)
+Generated from live tool responses. All values copied verbatim from tool output.
+================================================================================
+
+
+1: STATUS PARAGRAPH
+
+
+All 10 medium-tier chain tools returned status "success". No tool failures.
+Summary of per-tool telemetry follows, including chain_log step latencies.
+
+---
+
+TOOL m1 — Open-Meteo 7-day NY Forecast
+  Overall : duration_ms=451  ram_rss_mb=89.01  response_bytes=579
+  Chain steps:
+  - get_weather_forecast : request_duration_ms=451  response_bytes=502
+
+---
+
+TOOL m2 — NPS California Parks + Detail
+  Overall : duration_ms=936  ram_rss_mb=89.01  response_bytes=819
+  Chain steps:
+  - findParks       : request_duration_ms=524  response_bytes=125243
+  - getParkDetails  : request_duration_ms=410  response_bytes=7201
+
+---
+
+TOOL m3 — Hacker News Top-10 Stories
+  Overall : duration_ms=1177  ram_rss_mb=89.01  response_bytes=2387
+  Chain steps:
+  - fetch_top_stories  : request_duration_ms=131  response_bytes=4501
+  - fetch_story_1      : request_duration_ms=75   response_bytes=336
+  - fetch_story_2      : request_duration_ms=95   response_bytes=633
+  - fetch_story_3      : request_duration_ms=106  response_bytes=307
+  - fetch_story_4      : request_duration_ms=112  response_bytes=395
+  - fetch_story_5      : request_duration_ms=85   response_bytes=352
+  - fetch_story_6      : request_duration_ms=79   response_bytes=1428
+  - fetch_story_7      : request_duration_ms=116  response_bytes=1606
+  - fetch_story_8      : request_duration_ms=113  response_bytes=311
+  - fetch_story_9      : request_duration_ms=138  response_bytes=348
+  - fetch_story_10     : request_duration_ms=117  response_bytes=2185
+
+---
+
+TOOL m4 — Hugging Face Top-20 Text-Classification Models
+  Overall : duration_ms=122  ram_rss_mb=89.01  response_bytes=690
+  Chain steps:
+  - search_models   : request_duration_ms=75  response_bytes=10664
+  - get_model_info  : request_duration_ms=47  response_bytes=5372
+
+---
+
+TOOL m5 — Met Museum Impressionism Search + First Object
+  Overall : duration_ms=562  ram_rss_mb=89.01  response_bytes=710
+  Chain steps:
+  - search_museum_objects : request_duration_ms=208  response_bytes=1393
+  - get_museum_object     : request_duration_ms=354  response_bytes=2563
+
+---
+
+TOOL m6 — FIPE Brazilian Auto API
+  Overall : duration_ms=1260  ram_rss_mb=89.01  response_bytes=883
+  Chain steps:
+  - get_car_brands        : request_duration_ms=772  response_bytes=3486
+  - search_car_price      : request_duration_ms=313  response_bytes=38460
+  - get_vehicles_by_type  : request_duration_ms=172  response_bytes=3312
+
+---
+
+TOOL m7 — OKX BTC-USDT 48h Candles + ETH-USDT Ticker
+  Overall : duration_ms=460  ram_rss_mb=89.01  response_bytes=648
+  Chain steps:
+  - get_candlesticks : request_duration_ms=233  response_bytes=5593
+  - get_price_eth    : request_duration_ms=227  response_bytes=354
+
+---
+
+TOOL m8 — Steam Top Sellers + Featured Games
+  Overall : duration_ms=242  ram_rss_mb=89.01  response_bytes=738
+  Chain steps:
+  - get_steam_top_sellers  : request_duration_ms=106  response_bytes=50525
+  - get_steam_most_played  : request_duration_ms=135  response_bytes=24426
+
+---
+
+TOOL m9 — NixOS / Repology nodejs Package Search
+  Overall : duration_ms=1184  ram_rss_mb=89.27  response_bytes=740
+  Chain steps:
+  - nixos_search              : request_duration_ms=522  response_bytes=318012
+  - nixos_info                : request_duration_ms=545  response_bytes=289082
+  - nixhub_package_versions   : request_duration_ms=0    response_bytes=0
+                                (note: fallback — nixhub unavailable)
+
+---
+
+TOOL m10 — Wikipedia "Distributed Systems" Article + Sections
+  Overall : duration_ms=551  ram_rss_mb=89.27  response_bytes=851
+  Chain steps:
+  - search_wikipedia : request_duration_ms=337  response_bytes=2299
+  - get_article      : request_duration_ms=135  response_bytes=59270
+  - get_sections     : request_duration_ms=0    response_bytes=0
+                       (note: fallback — mobile-sections API decommissioned,
+                        wikitext fallback used)
+
+
+
+2: RESULTS TABLE
+
+
+| Tool | Source                          | Key Result                                          | Stat Used         | Value          | Status  |
+|------|---------------------------------|-----------------------------------------------------|-------------------|----------------|---------|
+| m1   | Open-Meteo (New York)           | 7-day daily max temps (C); dates 2026-04-12 to 18   | mean              | 23.11          | SUCCESS |
+| m1   | Open-Meteo (New York)           | 7-day daily max temps (C)                           | median            | 25.2           | SUCCESS |
+| m1   | Open-Meteo (New York)           | 7-day daily max temps (C)                           | min               | 12.4           | SUCCESS |
+| m1   | Open-Meteo (New York)           | 7-day daily max temps (C)                           | max               | 28.0           | SUCCESS |
+| m2   | NPS API (CA parks, limit=15)    | 15 parks returned; detail for Alcatraz Island       | mean latitude     | 36.2033        | SUCCESS |
+| m2   | NPS API (CA parks, limit=15)    | Park latitudes                                      | median latitude   | 36.48753731    | SUCCESS |
+| m2   | NPS API (CA parks, limit=15)    | Park latitudes                                      | sum latitudes     | 543.0499       | SUCCESS |
+| m3   | Hacker News (Reddit blocked)    | 10 stories; top: "The peril of laziness lost"       | mean score        | 154.8          | SUCCESS |
+| m3   | Hacker News                     | Scores: 143,377,122,168,128,60,70,150,143,187       | median score      | 143.0          | SUCCESS |
+| m3   | Hacker News                     | Story scores                                        | mode score        | 143            | SUCCESS |
+| m4   | Hugging Face Hub                | 20 text-class models; top: cross-encoder/ms-marco   | mean downloads    | 2855446.25     | SUCCESS |
+| m4   | Hugging Face Hub                | Top model: cross-encoder/ms-marco-MiniLM-L6-v2      | top model DLs     | 18775738       | SUCCESS |
+| m4   | Hugging Face Hub                | 20 model download counts                            | median downloads  | 1239456.5      | SUCCESS |
+| m4   | Hugging Face Hub                | 20 model download counts                            | sum downloads     | 57108925       | SUCCESS |
+| m5   | Met Museum (impressionism)      | 197 results; first object: Garden at Sainte-Adresse | mean object ID    | 463746.7       | SUCCESS |
+| m5   | Met Museum                      | 20 sampled object IDs (1867 painting)               | median object ID  | 437705.0       | SUCCESS |
+| m5   | Met Museum                      | 20 sampled object IDs                               | sum object IDs    | 9274934        | SUCCESS |
+| m6   | FIPE Brazilian Auto API         | 106 car brands; 583 FIAT models; 100 moto brands    | mean model code   | 4610.64        | SUCCESS |
+| m6   | FIPE                            | FIAT model codes                                    | median model code | 5240.0         | SUCCESS |
+| m6   | FIPE                            | FIAT model codes                                    | mode model code   | 437            | SUCCESS |
+| m7   | OKX Exchange                    | 48 BTC-USDT hourly candles                          | close mean (USD)  | 72265.99       | SUCCESS |
+| m7   | OKX Exchange                    | BTC-USDT 48h close prices                           | close median      | 72716.8        | SUCCESS |
+| m7   | OKX Exchange                    | BTC-USDT 48h close prices                           | close sum         | 3468767.4      | SUCCESS |
+| m7   | OKX Exchange                    | BTC-USDT 48h volumes                                | volume sum        | 8465.6659      | SUCCESS |
+| m7   | OKX Exchange                    | ETH-USDT spot price                                 | eth_usdt_price    | 2208.19        | SUCCESS |
+| m8   | Steam Store API                 | 10 top sellers + 10 featured; 20 prices sampled     | mean price (USD)  | 28.07          | SUCCESS |
+| m8   | Steam Store API                 | 20 game prices sampled                              | median price      | 21.99          | SUCCESS |
+| m8   | Steam Store API                 | 20 game prices sampled                              | sum prices        | 561.32         | SUCCESS |
+| m8   | Steam Store API                 | 20 game prices sampled                              | mode price        | 9              | SUCCESS |
+| m9   | NixOS / Repology                | 9 search results; 43 nix entries; 43 version entries| mean ver. count   | 22             | SUCCESS |
+| m9   | NixOS / Repology                | Version counts per entry                            | median ver. count | 22             | SUCCESS |
+| m9   | NixOS / Repology                | Version counts per entry                            | sum ver. count    | 946            | SUCCESS |
+| m10  | Wikipedia                       | Article: "Distributed computing"; 22 sections;      | mean section len  | 2629.18        | SUCCESS |
+|      |                                 | article_char_count=58373                            |                   |                |         |
+| m10  | Wikipedia                       | 22 section character lengths                        | median section    | 2476.0         | SUCCESS |
+| m10  | Wikipedia                       | 22 section character lengths                        | sum section lens  | 57842          | SUCCESS |
+---
+
+
+3: PER-TOOL METRICS TABLE
+
+
+| Tool | duration_ms | ram_rss_mb | response_bytes | Steps | Slowest Step               | Slowest Step ms |
+|------|-------------|------------|----------------|-------|----------------------------|-----------------|
+| m1   | 451         | 89.01      | 579            | 1     | get_weather_forecast       | 451             |
+| m2   | 936         | 89.01      | 819            | 2     | findParks                  | 524             |
+| m3   | 1177        | 89.01      | 2387           | 11    | fetch_story_9              | 138             |
+| m4   | 122         | 89.01      | 690            | 2     | search_models              | 75              |
+| m5   | 562         | 89.01      | 710            | 2     | get_museum_object          | 354             |
+| m6   | 1260        | 89.01      | 883            | 3     | get_car_brands             | 772             |
+| m7   | 460         | 89.01      | 648            | 2     | get_candlesticks           | 233             |
+| m8   | 242         | 89.01      | 738            | 2     | get_steam_most_played      | 135             |
+| m9   | 1184        | 89.27      | 740            | 3     | nixos_info                 | 545             |
+| m10  | 551         | 89.27      | 851            | 3     | search_wikipedia           | 337             |
+---
+
+Notes on steps count:
+- m3 reports 11 chain_log entries: 1 top-stories fetch + 10 individual story fetches.
+- m9 step "nixhub_package_versions" returned request_duration_ms=0 (fallback);
+  excluded from slowest-step calculation.
+- m10 step "get_sections" returned request_duration_ms=0 (fallback);
+  excluded from slowest-step calculation.
+
+
+ 4: DERIVED RESULT
+
+DERIVATION A — HF Total Downloads per Unit of Mean HN Story Score
+-----------------------------------------------------------------
+
+This derivation combines pre-computed stats from two different tools:
+
+  Field A : m4.result.stats.sum
+            Source  : Hugging Face Hub (tool m4)
+            Meaning : Total download count across the top-20 text-classification models
+            Value   : 57108925
+
+  Field B : m3.result.stats.mean
+            Source  : Hacker News top-10 stories (tool m3)
+            Meaning : Mean upvote score across the 10 fetched stories
+            Value   : 154.8
+
+  Operation : Field A / Field B
+              57108925 / 154.8 = 368920.70
+
+  Interpretation :
+  At the time of this run, the 20 top Hugging Face text-classification models
+  had accumulated a combined 57,108,925 downloads. The 10 concurrently trending
+  Hacker News stories carried a mean score of 154.8 points. Dividing total
+  model downloads by mean story score yields 368,920.70 — meaning that for
+  every 1 unit of average HN community engagement score, there are approximately
+  368,921 total downloads distributed across those 20 HF models.
+
+---
+
+DERIVATION B — BTC Mean Close Price vs. Steam Mean Game Price
+-------------------------------------------------------------
+
+  Field C : m7.result.stats.close_mean
+            Source  : OKX BTC-USDT 48-hour candles (tool m7)
+            Meaning : Mean BTC-USDT closing price over 48 one-hour candles
+            Value   : 72265.99
+
+  Field D : m8.result.stats.mean_price_usd
+            Source  : Steam Store API top sellers + featured (tool m8)
+            Meaning : Mean retail price (USD) across 20 sampled Steam games
+            Value   : 28.07
+
+  Operation : Field C / Field D
+              72265.99 / 28.07 = 2574.49
+
+  Interpretation :
+  At the 48-hour mean BTC closing price of 72,265.99 USD, one Bitcoin is
+  equivalent in nominal USD value to approximately 2,574 Steam games purchased
+  at the sampled mean retail price of 28.07 USD per game.
+
+================================================================================
+END OF BRIEF
+================================================================================
