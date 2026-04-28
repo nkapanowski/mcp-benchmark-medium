@@ -15,7 +15,7 @@ Claude / MCP Client
         |
         v
 CloudFront (HTTPS + TLS termination)
-https://d2plqe3qtelgql.cloudfront.net/mcp
+https://dtqsijgqm5u39.cloudfront.net/mcp
         |
         v
 EC2 Instance (Ubuntu, t3.micro)
